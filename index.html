@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin OS — xdea.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">Axxdea<span class="logo-dot">.</span></div>
+      <div class="logo-sub">Admin OS</div>
+    </div>
+
+    <nav class="sidebar-nav" role="navigation" aria-label="Main navigation">
+
+      <button class="nav-item active" data-section="overview" onclick="navigate('overview')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        <span class="nav-label">Overview</span>
+      </button>
+
+      <button class="nav-item" data-section="tasks" onclick="navigate('tasks')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        <span class="nav-label">Tasks</span>
+        <span class="nav-badge" id="tasks-badge" aria-label="Incomplete tasks"></span>
+      </button>
+
+      <button class="nav-item" data-section="clients" onclick="navigate('clients')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="nav-label">Clients</span>
+      </button>
+
+      <button class="nav-item" data-section="notes" onclick="navigate('notes')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span class="nav-label">Notes</span>
+      </button>
+
+      <button class="nav-item" data-section="income" onclick="navigate('income')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+        </svg>
+        <span class="nav-label">Income</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar" aria-hidden="true">A</div>
+        <div class="user-info">
+          <div class="user-name">Adeola Yusuff</div>
+          <div class="user-role">Axxdea. Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main">
+
+    <header class="header">
+      <div class="header-left">
+        <h1 class="greeting" id="greeting">Good morning, Adeola 👋</h1>
+        <p class="current-date" id="current-date"></p>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" id="header-add-btn" onclick="handleHeaderBtn()">+ Add Task</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ===== OVERVIEW ===== -->
+      <section id="section-overview" class="section active" aria-label="Overview">
+
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-value" id="metric-tasks">0</div>
+            <div class="metric-label">Tasks Remaining</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="metric-clients">0</div>
+            <div class="metric-label">Active Clients</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="metric-income">£0</div>
+            <div class="metric-label">Income This Month</div>
+          </div>
+        </div>
+
+        <div class="overview-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Upcoming Tasks</h2>
+              <button class="link-btn" onclick="navigate('tasks')">View all →</button>
+            </div>
+            <div id="overview-tasks-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Quick Notes</h2>
+              <button class="link-btn" onclick="navigate('notes')">Open →</button>
+            </div>
+            <div class="notes-preview" id="overview-notes-preview">No notes yet.</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== TASKS ===== -->
+      <section id="section-tasks" class="section" aria-label="Tasks">
+
+        <div class="section-head">
+          <div>
+            <h1 class="section-title">Tasks</h1>
+            <p class="section-subtitle" id="tasks-subtitle">0 tasks</p>
+          </div>
+          <button class="btn-primary" onclick="toggleForm('add-task-form')">+ Add Task</button>
+        </div>
+
+        <div class="form-card" id="add-task-form" style="display:none;">
+          <h3 class="form-title">New Task</h3>
+          <input type="text" id="task-text" class="input full-width" placeholder="What needs to be done?" autocomplete="off">
+          <div class="form-row">
+            <input type="date" id="task-due" class="input">
+            <select id="task-priority" class="input">
+              <option value="normal">Normal priority</option>
+              <option value="high">⚑ High priority</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="addTask()">Add Task</button>
+            <button class="btn-ghost" onclick="toggleForm('add-task-form')">Cancel</button>
+          </div>
+        </div>
+
+        <div class="filter-row" role="group" aria-label="Filter tasks">
+          <button class="filter-tab active" data-filter="all" onclick="setTaskFilter('all')">All</button>
+          <button class="filter-tab" data-filter="active" onclick="setTaskFilter('active')">Active</button>
+          <button class="filter-tab" data-filter="completed" onclick="setTaskFilter('completed')">Completed</button>
+        </div>
+
+        <div id="task-list" class="task-list" role="list"></div>
+
+      </section>
+
+      <!-- ===== CLIENTS ===== -->
+      <section id="section-clients" class="section" aria-label="Clients">
+
+        <div class="section-head">
+          <div>
+            <h1 class="section-title">Clients</h1>
+            <p class="section-subtitle" id="clients-subtitle">0 clients</p>
+          </div>
+          <button class="btn-primary" onclick="toggleForm('add-client-form')">+ Add Client</button>
+        </div>
+
+        <div class="form-card" id="add-client-form" style="display:none;">
+          <h3 class="form-title">New Client</h3>
+          <input type="text" id="client-name" class="input full-width" placeholder="Client name" autocomplete="off">
+          <div class="form-row">
+            <input type="email" id="client-email" class="input" placeholder="Email address">
+            <input type="tel" id="client-phone" class="input" placeholder="Phone number">
+          </div>
+          <div class="form-row">
+            <select id="client-status" class="input">
+              <option value="active">Active</option>
+              <option value="prospect">Prospect</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <textarea id="client-notes-input" class="textarea" rows="3" placeholder="Notes about this client..."></textarea>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="addClient()">Add Client</button>
+            <button class="btn-ghost" onclick="toggleForm('add-client-form')">Cancel</button>
+          </div>
+        </div>
+
+        <div id="client-list" class="client-grid" role="list"></div>
+
+      </section>
+
+      <!-- ===== NOTES ===== -->
+      <section id="section-notes" class="section" aria-label="Notes">
+
+        <div class="section-head">
+          <div>
+            <h1 class="section-title">Notes</h1>
+            <p class="section-subtitle">Your personal workspace</p>
+          </div>
+          <span class="save-badge" id="save-badge" aria-live="polite">Saved ✓</span>
+        </div>
+
+        <div class="notes-wrap">
+          <textarea
+            id="notes-textarea"
+            class="notes-textarea"
+            placeholder="Start typing your notes here...&#10;&#10;Everything saves automatically as you type."
+            aria-label="Notes editor"
+          ></textarea>
+        </div>
+
+      </section>
+
+      <!-- ===== INCOME ===== -->
+      <section id="section-income" class="section" aria-label="Income">
+
+        <div class="section-head">
+          <div>
+            <h1 class="section-title">Income</h1>
+            <p class="section-subtitle">Track your earnings</p>
+          </div>
+          <button class="btn-primary" onclick="toggleForm('add-income-form')">+ Log Income</button>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-value" id="income-this-month">£0.00</div>
+            <div class="metric-label">This Month</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="income-all-time">£0.00</div>
+            <div class="metric-label">All Time</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="income-entries">0</div>
+            <div class="metric-label">Total Entries</div>
+          </div>
+        </div>
+
+        <div class="form-card" id="add-income-form" style="display:none;">
+          <h3 class="form-title">Log Income</h3>
+          <div class="form-row">
+            <input type="text" id="income-client-name" class="input" placeholder="Client name" autocomplete="off">
+            <input type="number" id="income-amount" class="input" placeholder="Amount (£)" min="0" step="0.01">
+          </div>
+          <div class="form-row">
+            <input type="date" id="income-date" class="input">
+            <input type="text" id="income-desc" class="input" placeholder="Description (e.g. Admin support, June)" autocomplete="off">
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="addIncome()">Log Income</button>
+            <button class="btn-ghost" onclick="toggleForm('add-income-form')">Cancel</button>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <table class="income-table" aria-label="Income entries">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Description</th>
+                <th class="text-right">Amount</th>
+                <th class="col-action"></th>
+              </tr>
+            </thead>
+            <tbody id="income-table-body">
+              <tr><td colspan="5" class="empty-cell">No income logged yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+    </div><!-- end .content -->
+  </main>
+
+</div><!-- end .app -->
+
+<script src="js/app.js"></script>
+</body>
+</html>
